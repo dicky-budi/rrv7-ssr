@@ -10,13 +10,17 @@ export function meta({}: Route.MetaArgs) {
 
 export function loader({ context }: Route.LoaderArgs) {
   // return { message: context.VALUE_FROM_VERCEL };
+
+  return { message: new Promise<string>((resolve) => setTimeout(() => {
+      resolve("Hello World")
+  }, 2000)) };
   
   /// this 10 seconds timeout can only work because of this command:
   /// npx react-router reveal entry.server
   /// this command migrates react router entry.server files into our own codebase so we can modify it
-  return { message: new Promise<string>((resolve) => setTimeout(() => {
-      resolve("Hello World")
-  }, 10000)) };
+  // return { message: new Promise<string>((resolve) => setTimeout(() => {
+  //     resolve("Hello World")
+  // }, 10000)) };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
